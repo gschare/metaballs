@@ -1,13 +1,15 @@
 static int N = 10;
-static int PIXEL_RATIO = 1;
+static int PIXEL_RATIO = 10;
 static int THRESHOLD = 1;
 int cols, rows;
 Circle[] circles = new Circle[N];
 float[][] field;
+float h;
 
 void setup() {
     size(848, 480);
-    frameRate(15);
+    frameRate(30);
+    h=0;
     float x_offset = MAX_RADIUS_FACTOR * height;
     float y_offset = MAX_RADIUS_FACTOR * width;
     cols = 1 + width / PIXEL_RATIO;
@@ -79,8 +81,8 @@ Circle getClosestCircle(float x, float y) {
 }
 
 void draw() {
-    background(51);
-/*
+    background(0);
+
     for (int i=0; i<cols; i++) {
         for (int j=0; j<rows; j++) {
             float x = i * PIXEL_RATIO;
@@ -88,7 +90,7 @@ void draw() {
             field[i][j] = f(x,y); 
         }
     }
-    */
+    /*
     loadPixels();
     for (int x=0; x<width; x++) {
         for (int y=0; y<height; y++) {
@@ -105,11 +107,9 @@ void draw() {
         }
     }
     updatePixels();
+    */
 
 /*
-    // this is shit because we're just filling in every pixel which destroys performance like before and has some weird behavior I don't understand
-    // what I really need is a super fast algorithm to detect the blobs OR one to detect the contours.
-    // It is silly to just fill everything in this way -- it defeats the purpose and I don't have the control I want. The control is really the key here -- if I could treat these as shapes, then I can do anything.
     loadPixels();
     for (int x=0; x<width; x++) {
         for (int y=0; y<height; y++) {
@@ -128,7 +128,6 @@ void draw() {
     }
     updatePixels();
 */
-/*
     for (int i=0; i<cols-1; i++) {
         for (int j=0; j<rows-1; j++) {
             // interpolation
@@ -169,19 +168,19 @@ void draw() {
             d.x = x;
             d.y = lerp(y, y + PIXEL_RATIO, amt);
 
-            stroke(0, 0, 100);
-            strokeWeight(1);
+            stroke(h%360, 50, 100);
+            strokeWeight(4);
             draw_contours(state, a, b, c, d);
         }
     }
-*/
 
     for (Circle c: circles) {
         c.update();
         //c.show();
     }
 
-    saveFrame("gif/#####.png");
+    h += 0.5;
+    saveFrame("gif/####.png");
 }
 
 void draw_contours(int state, PVector a, PVector b, PVector c, PVector d) {
