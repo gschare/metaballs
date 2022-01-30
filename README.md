@@ -1,7 +1,8 @@
 # metaballs
 
-Followed tutorial by [Jamie Wong](http://jamie-wong.com/2014/08/19/metaballs-and-marching-squares/)
+Metaballs are a way to meld together shapes when they get close together, creating a neat and dynamic blobby shape. You can see an example below, where bouncing balls automatically blend together when they're nearby.
+It works using isolines!
 
-check em out
+I learned about metaballs and the math behind them from [Jamie Wong](http://jamie-wong.com/2014/08/19/metaballs-and-marching-squares/).
 
 ![metaballs](https://github.com/gschare/metaballs/blob/main/gif/out.gif)
